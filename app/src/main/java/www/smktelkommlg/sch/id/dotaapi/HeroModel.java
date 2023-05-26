@@ -1,7 +1,10 @@
 package www.smktelkommlg.sch.id.dotaapi;
 
 public class HeroModel {
-    private String heroName, heroAttr, heroAttack, heroImg;
+    private final String heroName;
+    private final String heroAttr;
+    private final String heroAttack;
+    private final String heroImg;
 
     public String getHeroName() {
         return heroName;

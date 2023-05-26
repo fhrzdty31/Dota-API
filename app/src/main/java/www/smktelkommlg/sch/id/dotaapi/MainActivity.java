@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     List<HeroModel> heroList = new ArrayList<>();
-    private String url = "https://api.opendota.com";
+    private final String url = "https://api.opendota.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +36,7 @@ public class MainActivity extends AppCompatActivity {
         getVolley();
     }
     private void getVolley() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "/api/herostats", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                getData(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Eror Data", Toast.LENGTH_LONG);
-            }
-        });
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "/api/herostats", this::getData, error -> Toast.makeText(MainActivity.this, "Eror Data", Toast.LENGTH_LONG));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
